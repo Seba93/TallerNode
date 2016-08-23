@@ -1,1 +1,1 @@
-# Repositorio para taller de node.js de Sebastián Vergara.
+# Repositorio para taller de node.js de Sebastián Vergara
