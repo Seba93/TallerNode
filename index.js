@@ -60,6 +60,7 @@ var arya = new Persona('Arya Stark');
 
 //Tip: Para trabajar con tiempo, se recomienda utilizar modulo moment
 //Ejercicio: Imprimir fecha de hoy mas 7 dias
+var moment = require('moment')
 var hoymas7dias = moment().add(7, 'day').toISOString();
 console.log(hoymas7dias);
 
