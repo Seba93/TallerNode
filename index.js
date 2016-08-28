@@ -62,7 +62,8 @@ var arya = new Persona('Arya Stark');
 //Ejercicio: Imprimir fecha de hoy mas 7 dias
 var moment = require('moment')
 var hoymas7dias = moment().add(7, 'day').toISOString();
-console.log(hoymas7dias);
+console.log('\n Se imprime fecha de hoy, mas 7 dias');
+console.log(hoymas7dias + '\n');
 
 //Ejercicio: Ingresar a https://jsonplaceholder.typicode.com/users
 //Crear variable con texto presente
@@ -301,6 +302,7 @@ var usuarios = [
   }
 ]
 
+console.log('Se imprime nombre y mail de usuarios, usando forEach \n');
 usuarios.forEach(function(u) {
 	console.log(u.name + '(' + u.email + ')');
 	});
@@ -311,6 +313,7 @@ usuarios.forEach(function(u) {
 var usuarios2 = usuarios.map(function(u) {
 	return u.name;
 	});
+console.log('\n Se almacena en un lista los nombres de los usuarios, usando map \n');
 console.log(usuarios2);
 
 //Ejercicio: Calcular promedio de latitudes. Hint: Usar reduce
@@ -322,5 +325,5 @@ var latitudes = usuarios.map(function(u) {
 //val_ac: valor acumulado de la suma; val: valor a sumar
 var suma_latitudes = latitudes.reduce(function (val_ac, val) {return val_ac + val;}, 0);
 var promedio_latitudes = suma_latitudes / latitudes.length;
+console.log('\n Se calcula promedio de latitudes, usando reduce');
 console.log("Promedio de latitudes: " + promedio_latitudes)
-
