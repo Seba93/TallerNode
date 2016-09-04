@@ -1,29 +1,3 @@
-//Clase 2
-
-//Programacion asincrona
-console.log('Hola mundo');
-
-function sumar (a, b)
-{
-	console.log(a+b);
-}
-
-setTimeout(sumar(2,3) , 2000);
-console.log('Chao mundo');
-
-//Ejercicio: Generar archivo .json que tenga escrito {"saludo": "Hola mundo"}
-//hint: Usar stringify
-
-const fs = require('fs');
-const saludo = {
-	saludo : "Hola Mundo"
-};
-
-fs.writeFile("saludo.json", JSON.stringify(saludo), (err) => {
-	if (err) throw err;
-	console.log('Archivo creado!');
-});
-
 //Ejercicio: crear archivo usuarios.json, leerlo y calcular promedio de latitudes
 //Requerir archivo local: require("./archivo.js")
 
@@ -260,6 +234,8 @@ var usuarios = [
   }
 ];
 
+var fs = require('fs');
+
 fs.writeFile("usuarios.json", JSON.stringify(usuarios), (err) => {
 	if (err) return err.message;
 });
@@ -279,21 +255,3 @@ function promedio_latitudes(datos) {
 }
 
 setTimeout(promedio_latitudes(usuarios), 1000);
-
-//Ejercicio: Leer registros de https://jsonplaceholder.typicode.com/comments y calcular cantidad promedio de palabras por comentario
-
-var request = require('request');
-var url = 'https://jsonplaceholder.typicode.com/comments'
-var comentarios = request(url, function (err, response, body) {
-	if (!err & response.statusCode == 200) {
-		comentarios = JSON.parse(body);	
-	}
-});
-
-var palabras_porComentario = comentarios.map(function (u) {
-	return u.body.length;
-});
-
-var total_palabras = palabras_porComentario.reduce(function (val_ac, val) {return val_ac + val;}, 0);
-var prom_palabras = total_palabras / comentarios.length;
-console.log("Cantidad promedio de palabras por comentario: " + prom_palabras);
