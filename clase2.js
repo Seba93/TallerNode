@@ -1,73 +1,31 @@
-//Sesion 1
+//Clase 2
 
-//Variables
-var variable = "hola";
+//Programacion asincrona
+console.log('Hola mundo');
 
-//Funciones
-function saludarAalguien(nombre)
+function sumar (a, b)
 {
-	console.log(nombre);
+	console.log(a+b);
 }
 
-saludarAalguien("Jon Snow");
+setTimeout(sumar(2,3) , 2000);
+console.log('Chao mundo');
 
-//Una sintaxis equivalente a la anterior es la siguiente (funcion anonima)
-//Funcion anonima facilita el paso de valores
-var saludarAlguien2 = function (nombre)
-{
-	console.log(nombre);
-}
+//Ejercicio: Generar archivo .json que tenga escrito {"saludo": "Hola mundo"}
+//hint: Usar stringify
 
-saludarAlguien2("Ser Davos");
+const fs = require('fs');
+const saludo = {
+	saludo : "Hola Mundo"
+};
 
-//Arreglos
+fs.writeFile("saludo.json", JSON.stringify(saludo), (err) => {
+	if (err) throw err;
+	console.log('Archivo creado!');
+});
 
-var arreglo = [1,2,3,4,5]
-
-//Agregar elementos a un arreglo
-//Opcion 1: Usar funcion push
-
-arreglo.push(3);
-
-//Opcion 2: Usar funcion concat
-arreglo.concat([3]);
-
-//Nota: push modifica arreglo original, a diferencia de concat
-//Concat retorna arreglo nuevo
-//Se recomienda usar concat
-
-//Objectos
-//Objeto literal
-var jon = {nombre : 'Jon Snow', edad : '20', armas : ['espada', 'daga'], padre : {nombre : 'Ned Stark', edad : 50}};
-
-//Acceder atributos del objeto
-//Opcion 1
-console.log(jon.nombre);
-
-//Opcion 2
-console.log(jon['nombre']);
-
-//Objetos funciones (poco usado por herencia)
-function Persona(name)
-{
-	this.name = name;
-	this.saludar = function () {
-		console.log(this.name);
-	}
-}
-
-var arya = new Persona('Arya Stark');
-
-//Tip: Para trabajar con tiempo, se recomienda utilizar modulo moment
-//Ejercicio: Imprimir fecha de hoy mas 7 dias
-var moment = require('moment')
-var hoymas7dias = moment().add(7, 'day').toISOString();
-console.log('\n Se imprime fecha de hoy, mas 7 dias');
-console.log(hoymas7dias + '\n');
-
-//Ejercicio: Ingresar a https://jsonplaceholder.typicode.com/users
-//Crear variable con texto presente
-//Imprimir nombre y mail de c/persona en formato nombre(mail)
+//Ejercicio: crear archivo usuarios.json, leerlo y calcular promedio de latitudes
+//Requerir archivo local: require("./archivo.js")
 
 var usuarios = [
   {
@@ -300,30 +258,42 @@ var usuarios = [
       "bs": "target end-to-end models"
     }
   }
-]
+];
 
-console.log('Se imprime nombre y mail de usuarios, usando forEach \n');
-usuarios.forEach(function(u) {
-	console.log(u.name + '(' + u.email + ')');
+fs.writeFile("usuarios.json", JSON.stringify(usuarios), (err) => {
+	if (err) return err.message;
+});
+
+fs.readFile('usuarios.json', (err, data) => {
+	usuarios = JSON.parse(data);
+});
+
+function promedio_latitudes(datos) {
+	var latitudes = datos.map(function(u) {
+		return parseFloat(u.address.geo.lat);
 	});
+	
+	var suma_latitudes = latitudes.reduce(function (val_ac, val) {return val_ac + val;}, 0);
+	var promedio_latitudes = suma_latitudes / latitudes.length;
+	console.log("Promedio de latitudes: " + promedio_latitudes);
+}
 
-//Funciones de orden superior: Uno de sus argumentos es una funcion. Ejemplos: map, reduce, filter, forEach
-//Ejercicio: Almacenar nombres en una lista usando funcion de orden superior. Hint: Usar map
+setTimeout(promedio_latitudes(usuarios), 1000);
 
-var usuarios2 = usuarios.map(function(u) {
-	return u.name;
-	});
-console.log('\n Se almacena en un lista los nombres de los usuarios, usando map \n');
-console.log(usuarios2);
+//Ejercicio: Leer registros de https://jsonplaceholder.typicode.com/comments y calcular cantidad promedio de palabras por comentario
 
-//Ejercicio: Calcular promedio de latitudes. Hint: Usar reduce
+var request = require('request');
+var url = 'https://jsonplaceholder.typicode.com/comments'
+var comentarios = request(url, function (err, response, body) {
+	if (!err & response.statusCode == 200) {
+		comentarios = JSON.parse(body);	
+	}
+});
 
-var latitudes = usuarios.map(function(u) {
-	return parseFloat(u.address.geo.lat)
-	});
+var palabras_porComentario = comentarios.map(function (u) {
+	return u.body.length;
+});
 
-//val_ac: valor acumulado de la suma; val: valor a sumar
-var suma_latitudes = latitudes.reduce(function (val_ac, val) {return val_ac + val;}, 0);
-var promedio_latitudes = suma_latitudes / latitudes.length;
-console.log('\n Se calcula promedio de latitudes, usando reduce');
-console.log("Promedio de latitudes: " + promedio_latitudes);
+var total_palabras = palabras_porComentario.reduce(function (val_ac, val) {return val_ac + val;}, 0);
+var prom_palabras = total_palabras / comentarios.length;
+console.log("Cantidad promedio de palabras por comentario: " + prom_palabras);
