@@ -31,5 +31,19 @@ rot13._write = function(data, encoding, done) {
 //Se lee archivo 'hello.txt', se aplica rot13 y se escribe en 'rot13-hello.txt'
 reader.pipe(rot13).pipe(writer);
 
+//Exportar funcion rot13func
+module.exports = rot13func;
+
+//Otra forma
+
+//module.exports.rot13func = function(texto)...
+
+//Otra forma (cuando se tiene mas de una funcion)
+
+//module.exports = {
+	//rot13: rot13,
+	//otrafunc: otrafuncion,
+//}
+
 //En caso de que la entrada fuese texto por consola, se debe hacer lo siguiente:
 //process.stdin.pipe(rot13).pipe(writer);

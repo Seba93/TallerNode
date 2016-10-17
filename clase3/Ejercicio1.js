@@ -22,7 +22,7 @@ var main = function (nombre_usuario) {
 		if (!err && response.statusCode == 200) {
 			usuarios = JSON.parse(body);
 			usuario = usuarios.filter(function(u) {
-				return u.name == nombre_usuario; //corregir esta linea
+				return u['name'] == nombre_usuario; //corregir esta linea
 			})[0];
 			
 			id_usuario = usuario.id;
