@@ -1,8 +1,9 @@
-//Construccion de app RESTful basica
+//Persistencia de datos
 
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var User = require('./models/User.js');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -17,11 +18,12 @@ app.get('/users', (req, res) => {
 });
 
 //En este caso, se usa get para mostrar un usuario en especifico
-app.get('/users/:id', (req, res) => {
-	var usuario = users.filter(function(u) {
+app.get('users/:id', (req, res) => {
+	var usuario = [];
+	usuario = users.filter(function(u) {
 		return u.id == req.params.id;
-	})[0];
-	res.json(usuario);
+	});
+	res.json(usuario[0]);
 	res.end();
 });
 
@@ -33,9 +35,13 @@ app.post('/users', (req, res) => {
 		email: req.body.email
 	};
 
-	users.push(usuario_nuevo);
-	res.json(usuario_nuevo);
-	
+	User.create(usuario_nuevo)
+	.then((new_user) => {
+		res.json(new_user);
+	})
+	.catch((err) => {
+		res.json(err);
+	});
 });
 
 //delete: borrar algo (se borra usuario en especifico)
@@ -87,6 +93,8 @@ app.put('/users/:id', (req, res) => {
 });
 
 //"Levantar" el servidor
-app.listen(1313, () => {
+User.sync({force: true}).then(function () {
+	app.listen(1313, () => {
 	console.log('Servidor arriba en http://localhost:1313');
+	});	
 });
