@@ -40,15 +40,27 @@ app.post('/users', (req, res) => {
 
 //delete: borrar algo (se borra usuario en especifico)
 app.delete('/users/:id', (req, res) => {
+	var usuario = [];
 	var id_a_borrar = req.params.id;
 	users = users.filter(function(u) {
-		return u.id != id_a_borrar;
+
+		if (u.id == id_a_borrar)
+		{
+			usuario = u;
+		}
+		
+		else
+		{
+			return u;
+		}
 	});
-	res.send('Se ha eliminado usuario con id=' + id_a_borrar);
+	res.json(usuario);
 });
 
 //put: actualizar algo (se actualiza usuario en especifico)
 app.put('/users/:id', (req, res) => {
+
+	var usuario = [];
 	var id_a_actualizar = req.params.id;
 	users.map(function(u) {
 		if (u.id == id_a_actualizar)
@@ -56,17 +68,20 @@ app.put('/users/:id', (req, res) => {
 			if (req.body.username == '' && req.body.email != '')
 			{			
 				u.email = req.body.email;
+				usuario = u;
 				return u;
 			}
 
 			else if (req.body.email == '' && req.body.username != '')
 			{
 				u.username = req.body.username;
+				usuario = u;
 				return u;
 			}
 
 			else if (req.body.username == '' && req.body.email == '')
 			{
+				usuario = u;
 				return u;
 			}
 			
@@ -74,6 +89,7 @@ app.put('/users/:id', (req, res) => {
 			{
 				u.username = req.body.username;
 				u.email = req.body.email;
+				usuario = u;
 				return u;
 			}
 		} 
@@ -83,7 +99,7 @@ app.put('/users/:id', (req, res) => {
 			return u;
 		}
 	});
-	res.send('Se ha modificado usuario con id=' + id_a_actualizar);
+	res.json(usuario);
 });
 
 //"Levantar" el servidor

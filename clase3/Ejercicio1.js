@@ -1,6 +1,6 @@
 //Ejercicio 1
 
-var main = function (nombre_usuario) {
+var main = function () {
 
 	var request = require('request');
 	var fs = require('fs');
@@ -22,9 +22,8 @@ var main = function (nombre_usuario) {
 		if (!err && response.statusCode == 200) {
 			usuarios = JSON.parse(body);
 			usuario = usuarios.filter(function(u) {
-				return u['name'] == nombre_usuario; //corregir esta linea
+				return u.name == process.argv[2];
 			})[0];
-			
 			id_usuario = usuario.id;
 			username = usuario.username;
 
