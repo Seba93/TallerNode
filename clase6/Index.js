@@ -48,12 +48,22 @@ app.post('/users', (req, res) => {
 //delete: borrar algo (se borra usuario en especifico)
 app.delete('/users/:id', (req, res) => {
 
-	db.User.destroy({
+	db.User.findOne({
 		where: {
 			id: req.params.id
 		}
-	}).then(function(num_rows) {
-		res.send('Cantidad de registros eliminados:'+num_rows);
+	}).then(function(usuario) {
+		return usuario;
+	}).then(function (usuario) {
+		db.User.destroy({
+			where: {
+				id: req.params.id
+			}
+		}).then(function() {
+		});
+		
+		res.json(usuario);
+		res.end();
 	});
 });
 
@@ -61,36 +71,79 @@ app.delete('/users/:id', (req, res) => {
 app.put('/users/:id', (req, res) => {
 
 	if (req.body.name == '' && req.body.email != '')
-	{			
-		db.User.update({email: req.body.email}, {where: {id: req.params.id}})
-		.then(function(num_attr){
-			res.send('Cantidad de atributos modificados:'+ num_attr);
+	{	
+		db.User.findOne({
+			where: {
+				id: req.params.id
+			}
+		}).then(function(usuario) {
+			return usuario;
+		}).then(function (usuario) {
+			db.User.update({email: req.body.email}, {where: {id: req.params.id}})
+			.then(function() {
+			});
+
+			usuario.email = req.body.email;
+			res.json(usuario);
+			res.end();
 		});
 	}
 
 	else if (req.body.email == '' && req.body.name != '')
 	{
-		db.User.update({name: req.body.name}, {where: {id: req.params.id}})
-		.then(function(num_rows){
-			res.send('Cantidad de registros modificados:'+ num_rows);
-		});			
+		db.User.findOne({
+			where: {
+				id: req.params.id
+			}
+		}).then(function(usuario) {
+			return usuario;
+		}).then(function (usuario) {
+			db.User.update({name: req.body.name}, {where: {id: req.params.id}})
+			.then(function() {
+			});
+
+			usuario.name = req.body.name;
+			res.json(usuario);
+			res.end();
+		});		
 	}
 
 	else if (req.body.name == '' && req.body.email == '')
 	{
-		db.User.update({}, {where: {id: req.params.id}})
-		.then(function(num_attr){
-			res.send('Cantidad de atributos modificados:'+ num_attr);
+		db.User.findOne({
+			where: {
+				id: req.params.id
+			}
+		}).then(function(usuario) {
+			return usuario;
+		}).then(function (usuario) {
+			db.User.update({}, {where: {id: req.params.id}})
+			.then(function() {
+			});
+
+			res.json(usuario);
+			res.end();
 		});
-		
 	}
 
 	else
 	{
-		db.User.update({name: req.body.name, email: req.body.email}, {where: {id: req.params.id}})
-		.then(function(num_attr){
-			res.send('Cantidad de atributos modificados:'+ num_attr);
-		});			
+		db.User.findOne({
+			where: {
+				id: req.params.id
+			}
+		}).then(function(usuario) {
+			return usuario;
+		}).then(function (usuario) {
+			db.User.update({name: req.body.name, email: req.body.email}, {where: {id: req.params.id}})
+			.then(function() {
+			});
+
+			usuario.name = req.body.name;
+			usuario.email = req.body.email;
+			res.json(usuario);
+			res.end();
+		});		
 	}
 });
 
