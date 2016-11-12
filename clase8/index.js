@@ -17,7 +17,7 @@ server.listen(3000);
 var chat = io
     .of('chat')
     .on('connection', function (socket) {
-        console.log(`${socket.id} se ha conectado`);
+        console.log('${socket.id} se ha conectado');
         socket.on('msg:new', function(data) {
             chat.emit('msg:created', data);
         });
