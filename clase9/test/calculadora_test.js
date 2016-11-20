@@ -71,9 +71,3 @@ describe ('calculator', () => {
 	});
 
 });
-
-//agregar a package.json
-
-//"scripts": {
-//	"test": "mocha test"
-//}

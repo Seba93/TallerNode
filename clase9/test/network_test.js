@@ -23,7 +23,7 @@ describe('User', function () {
     describe('#findOne', function () {
         it('should fetch one user', function (done) {
 
-	    var user = User.findOne(1), 1000);	
+	    var user = User.findOne(1);	
 
 	    expect(user.id).to.be.equal(1);
 	    expect(user.name).to.be.equal('Leanne Graham');
