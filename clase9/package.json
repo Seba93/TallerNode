@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "axios": "^0.15.2",
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2",
+    "proxyquire": "^1.7.10"
+  },
+  "name": "clase9",
+  "version": "1.0.0",
+  "description": "Contenido clase 9",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {
+    "mocha": "^3.1.2"
+  },
+  "scripts": {
+    "test": "mocha test/*_test.js"
+  },
+  "author": "Seba93",
+  "license": "ISC"
+}
