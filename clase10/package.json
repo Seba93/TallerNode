@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "chai": "^3.5.0",
+    "express": "^4.14.0",
+    "mocha": "^3.1.2"
+  },
+  "name": "clase10",
+  "version": "1.0.0",
+  "description": "Ejercicios clase 10",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha ejercicios2y3/test/*_test.js",
+  },
+  "author": "Seba93",
+  "license": "ISC"
+}

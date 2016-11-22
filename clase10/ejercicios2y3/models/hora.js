@@ -1,3 +1,4 @@
+//Creacion de modelo para almacenar hora de visita
 module.exports = function(sequelize, DataTypes) {
     var horario = sequelize.define('horario', {
         hora: {
