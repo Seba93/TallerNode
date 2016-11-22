@@ -1,3 +1,5 @@
-Para ejecutar primer ejercicio, ejecutar el archivo /ejercicio1/ejercicio1.js  
+Para primer ejercicio, ejecutar el archivo /ejercicio1/ejercicio1.js  
+
 Para "levantar" servidor para ejercicios 2 y 3, ejecutar el archivo ejercicios2y3/ejercicio2y3.js  
+
 Para ejecutar pruebas sobre función de Fibonacci, ejecutar por consola el comando npm test
